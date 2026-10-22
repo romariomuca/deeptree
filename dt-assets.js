@@ -6,14 +6,14 @@ class DtLogo extends HTMLElement{
     if(this._wired)return;this._wired=true;
     this.addEventListener('mouseenter',()=>this.spin());
     this.tx=0;this.ty=0;this.cx=0;this.cy=0;
-    this._mm=e=>{const r=this.getBoundingClientRect(),ox=r.left+r.width/2,oy=r.top+r.height/2,dx=e.clientX-ox,dy=e.clientY-oy,dist=Math.hypot(dx,dy),Rr=Math.max(360,r.width*3.2);
+    this._mm=e=>{const r=this.getBoundingClientRect(),ox=r.left+r.width/2,oy=r.top+r.height/2,dx=e.clientX-ox,dy=e.clientY-oy,dist=Math.hypot(dx,dy),Rr=Math.max(180,r.width*1.8);
       let k=Math.max(0,1-dist/Rr);k=k*k*(3-2*k);
       const nx=Math.max(-1,Math.min(1,dx/Rr*1.6)),ny=Math.max(-1,Math.min(1,dy/Rr*1.6));
       this.ty=nx*65*k;this.tx=-ny*60*k};
     this._ml=()=>{this.tx=0;this.ty=0};
     window.addEventListener('mousemove',this._mm);document.addEventListener('mouseleave',this._ml);
     const tick=()=>{if(!this._wired)return;this._raf=requestAnimationFrame(tick);
-      this.cx+=(this.tx-this.cx)*.03;this.cy+=(this.ty-this.cy)*.03;
+      const back=Math.abs(this.tx)+Math.abs(this.ty)<Math.abs(this.cx)+Math.abs(this.cy),e=back?.12:.04;this.cx+=(this.tx-this.cx)*e;this.cy+=(this.ty-this.cy)*e;
       const st=this.shadowRoot&&this.shadowRoot.querySelector('.st');if(st)st.style.transform=`rotateX(${this.cx.toFixed(2)}deg) rotateY(${this.cy.toFixed(2)}deg)`};
     this._raf=requestAnimationFrame(tick);
     if(this.hasAttribute('auto'))this._iv=setInterval(()=>this.spin(),9000);

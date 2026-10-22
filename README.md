@@ -1,6 +1,3 @@
-# deeptree — sito statico
+# deeptree — logo showcase
 
-- `index.html` — sito
-- `logos.html` — esplorazione logo
-
-Deploy su Vercel: importa il repo, Framework Preset "Other", nessun build command, output directory `.` (root).
+Deploy su Vercel: Framework Preset "Other", nessun build command, output directory `.`.
