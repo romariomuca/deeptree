@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="./dt-assets.js"></script>
+<style>body{margin:0;background:#e9e5df;color:#171614;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}a:hover{color:#5f5b55}*{box-sizing:border-box}</style>
+</helmet>
+<div style="min-height:100vh;background:#e9e5df">
+
+<header onMouseLeave="{{ closeMenu }}" style="position:sticky;top:0;z-index:20;background:{{ hdrBg }};color:{{ hdrFg }};backdrop-filter:blur(10px);border-bottom:1px solid {{ hdrLine }};transition:background .4s ease-out,color .4s ease-out">
+<nav style="max-width:1440px;margin:0 auto;padding:14px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+<button onClick="{{ next }}" title="Click per cambiare logo" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:8px">
+<x-import component-from-global-scope="dt-logo" variant="{{ cur.v }}" front="{{ logoFront }}" size="28" hint-size="28px,28px"></x-import>
+<span style="font-weight:600;font-size:21px;letter-spacing:-.04em">deeptree</span>
+</button>
+<div style="display:flex;gap:28px;font-size:14px;flex-wrap:wrap;align-items:center">
+<a href="#" onMouseEnter="{{ closeMenu }}">Product</a><a href="#" onMouseEnter="{{ closeMenu }}">DeepTree 3</a><a href="#" onMouseEnter="{{ openMenu }}" style="display:flex;gap:6px;align-items:center;opacity:{{ ucOp }}">Use Cases<span style="display:inline-block;font-size:9px;transition:transform .4s ease-out;transform:{{ caret }}">▼</span></a><a href="#" onMouseEnter="{{ closeMenu }}">Custom Solutions</a><a href="#" onMouseEnter="{{ closeMenu }}">News</a><a href="#" onMouseEnter="{{ closeMenu }}">Careers</a>
+</div>
+<div style="display:flex;gap:8px;align-items:center;font-size:14px">
+<a href="#" style="padding:10px 16px">Login</a>
+<a href="#" style="padding:10px 18px;background:{{ ctaBg }};color:{{ ctaFg }};border-radius:2px;transition:background .4s,color .4s">Request Demo</a>
+</div>
+<div style="position:absolute;left:0;right:0;top:100%;background:#171614;color:#ece8e2;clip-path:inset(0 0 {{ menuClip }} 0);pointer-events:{{ menuPe }};transition:clip-path .7s cubic-bezier(.16,1,.3,1)">
+<div style="max-width:1440px;margin:0 auto;padding:48px clamp(20px,4vw,48px) 56px;display:grid;grid-template-columns:auto minmax(0,520px);gap:48px;align-items:start;justify-content:space-between">
+<div style="display:flex">
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,auto));gap:4px clamp(32px,5vw,72px)">
+<sc-for list="{{ ucItems }}" as="u" hint-placeholder-count="7">
+<a href="#use-cases" onMouseEnter="{{ u.hover }}" onClick="{{ closeMenu }}" style="display:flex;gap:14px;align-items:center;white-space:nowrap;font-size:clamp(18px,1.7vw,26px);letter-spacing:-.02em;line-height:1.5;color:{{ u.color }};transition:color .35s ease-out">{{ u.label }}<span style="font-size:.7em;opacity:{{ u.arrow }};transform:translateX({{ u.ax }});transition:opacity .35s ease-out,transform .5s cubic-bezier(.16,1,.3,1)">→</span></a>
+</sc-for>
+</div>
+</div>
+<div style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#232220">
+<img src="./assets/uc-1.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ ucImg0.op }};transform:scale({{ ucImg0.sc }})">
+<img src="./assets/uc-2.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ ucImg1.op }};transform:scale({{ ucImg1.sc }})">
+<img src="./assets/uc-3.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ ucImg2.op }};transform:scale({{ ucImg2.sc }})">
+</div>
+</div>
+</div>
+</nav>
+</header>
+
+<section style="max-width:1440px;margin:0 auto;padding:clamp(56px,8vw,112px) clamp(20px,4vw,48px) 48px;display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:flex-end">
+<div style="display:flex;flex-direction:column;gap:16px;max-width:760px">
+<span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5f5b55">deeptree · Logo exploration</span>
+<h1 style="margin:0;font-weight:400;font-size:clamp(40px,6vw,88px);line-height:1;letter-spacing:-.035em">Un simbolo, undici direzioni.</h1>
+</div>
+<p style="margin:0;max-width:380px;font-size:16px;line-height:1.55;color:#3a3834">Passa sopra un logo per farlo ruotare, muovi il mouse per inclinarlo. Clicca il logo nell'header, o una card, per provarlo nella navigazione.</p>
+</section>
+
+<section style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,48px) clamp(64px,8vw,112px);display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:20px">
+<sc-for list="{{ opts }}" as="o" hint-placeholder-count="11">
+<div id="{{ o.id }}" onClick="{{ o.pick }}" style="background:#f6f4f0;display:flex;flex-direction:column;cursor:pointer;border:.5px solid {{ o.outline }}">
+<div style="height:300px;display:flex;align-items:center;justify-content:center;position:relative;background:#e9e5df;border-bottom:.5px solid #171614">
+<span style="position:absolute;top:14px;left:14px;font-family:'Geist Mono',monospace;font-size:12px;padding:4px 8px;background:#171614;color:#ece8e2">{{ o.id }}</span>
+<sc-if value="{{ o.rec }}"><span style="position:absolute;top:14px;right:14px;font-family:'Geist Mono',monospace;font-size:11px;padding:4px 8px;border:1px solid #171614;text-transform:uppercase">In uso</span></sc-if>
+<x-import component-from-global-scope="dt-logo" variant="{{ o.v }}" size="160" hint-size="160px,160px"></x-import>
+</div>
+<div style="background:#171614;color:#ece8e2;padding:24px;display:flex;align-items:center;gap:10px">
+<x-import component-from-global-scope="dt-logo" variant="{{ o.v }}" size="36" front="#ece8e2" hint-size="36px,36px"></x-import>
+<span style="font-weight:600;font-size:30px;letter-spacing:-.04em">deeptree</span>
+</div>
+<div style="padding:24px;display:flex;align-items:center;gap:10px;border-bottom:.5px solid #171614">
+<x-import component-from-global-scope="dt-logo" variant="{{ o.v }}" size="36" hint-size="36px,36px"></x-import>
+<span style="font-weight:600;font-size:30px;letter-spacing:-.04em">deeptree</span>
+</div>
+<div style="padding:18px 24px 22px;display:flex;flex-direction:column;gap:4px"><span style="font-size:17px">{{ o.name }}</span><span style="font-size:14px;color:#5f5b55;line-height:1.45">{{ o.desc }}</span></div>
+</div>
+</sc-for>
+</section>
+
+<footer style="background:#171614;color:#ece8e2">
+<div style="max-width:1440px;margin:0 auto;padding:40px clamp(20px,4vw,48px);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center">
+<div style="display:flex;align-items:center;gap:10px">
+<x-import component-from-global-scope="dt-logo" variant="{{ cur.v }}" size="28" front="#ece8e2" hint-size="28px,28px"></x-import>
+<span style="font-weight:600;font-size:21px;letter-spacing:-.04em">deeptree</span>
+</div>
+<span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.06em;color:#8a857d;text-transform:uppercase">Logo exploration · 2026</span>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { i: 0 };
+  menuVals() {
+    const labels = ['Private Equity','Investment Banking','Market Analysis','Search Funds','Consulting','Banking','Business Development'];
+    if (!this._ucMap) { let p = -1; this._ucMap = labels.map(() => { let r; do { r = Math.random() * 3 | 0 } while (r === p); p = r; return r; }); }
+    const open = !!this.state.menu, act = this.state.uc ?? 0, img = this._ucMap[act];
+    return {
+      menuOpen: open, menuClip: open ? '0%' : '100%', menuPe: open ? 'auto' : 'none',
+      openMenu: () => this.setState({ menu: true }),
+      closeMenu: () => this.state.menu && this.setState({ menu: false }),
+      hdrBg: open ? '#171614' : 'rgba(233,229,223,.92)', hdrFg: open ? '#ece8e2' : '#171614', hdrLine: open ? '#171614' : '#d4cfc7',
+      logoFront: open ? '#ece8e2' : '#171614', ctaBg: open ? '#ece8e2' : '#171614', ctaFg: open ? '#171614' : '#ece8e2',
+      caret: open ? 'rotate(180deg)' : 'none', ucOp: 1,
+      ucItems: labels.map((label, i) => ({ label, color: i === act ? '#ece8e2' : '#8a857d', arrow: i === act ? 1 : 0, ax: i === act ? '0px' : '-8px', hover: () => this.setState({ uc: i }) })),
+      ucImg0: { op: img === 0 ? 1 : 0, sc: 1 }, ucImg1: { op: img === 1 ? 1 : 0, sc: 1 }, ucImg2: { op: img === 2 ? 1 : 0, sc: 1 }
+    };
+  }
+  renderVals() {
+    const list = [
+      { id: '4b', v: 'orbitLight', name: 'Orbite leggere', desc: 'Struttura speculare, ogni ramo è un anello pieno attorno al tronco.' },
+      { id: '4a', v: 'circuitSymLight', name: 'Speculare leggero', desc: 'Circuito simmetrico sopra e sotto, tratti sottili.' },
+      { id: '3a', v: 'circuitLight', name: 'Circuito leggero', desc: 'Tracce orizzontali con nodi alle estremità, tratti sottili.' },
+      { id: '3b', v: 'circuitSym', name: 'Circuito speculare', desc: 'Simmetrico sopra e sotto, tratto pieno.' },
+      { id: '3c', v: 'orbit', name: 'Orbite', desc: 'Anelli che si allargano verso il basso; i nodi orbitano attorno al tronco.' },
+      { id: '1a', v: 'pine', name: 'Abete', desc: 'Tre rami orizzontali che si allargano verso il basso.' },
+      { id: '1b', v: 'cross', name: 'Abete 3D', desc: 'Di fronte sembra 2D; ruotando ogni ramo si rivela una croce.' },
+      { id: '1c', v: 'chevron', name: 'Chevron', desc: 'Rami inclinati a V rovesciata, simmetrici sul tronco.' },
+      { id: '1d', v: 'asterisk', name: 'Asterisco', desc: 'Tre tratti che si incrociano.' },
+      { id: '1e', v: 'fork', name: 'Biforcazione', desc: 'Ogni ramo si divide in due, come un albero decisionale.' },
+      { id: '1f', v: 'circuit', name: 'Circuito', desc: 'Tracce orizzontali con nodi pieni alle estremità.' }
+    ];
+    const i = this.state.i;
+    return {
+      ...this.menuVals(),
+      cur: list[i],
+      next: () => this.setState(s => ({ i: (s.i + 1) % list.length })),
+      opts: list.map((o, k) => ({ ...o, rec: k === i, outline: k === i ? '#d9733f' : '#171614', pick: () => { this.setState({ i: k }); window.scrollTo({ top: 0, behavior: 'smooth' }); } }))
+    };
+  }
+}
+</script>
+</body>
+</html>
